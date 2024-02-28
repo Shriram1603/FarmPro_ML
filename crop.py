@@ -7,6 +7,7 @@ import pickle
 from sklearn.preprocessing import LabelEncoder
 import warnings
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 
 import xgboost as xgb
 from sklearn.metrics import accuracy_score
@@ -43,6 +44,9 @@ with open('label_encoder.pkl', 'wb') as le_file:
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.1,random_state=0)
 
 
+# rf_classifier = RandomForestClassifier(random_state=0)
+# rf_classifier.fit(x_train, y_train)
+# rf_accuracy = rf_classifier.score(x_test, y_test)
 
 #Initialize the XGBoost model
 xgb_classifier = xgb.XGBClassifier()

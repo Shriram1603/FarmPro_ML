@@ -12,6 +12,8 @@ with open('label_encoder.pkl', 'rb') as le_file:
 #ML model sheesh :
 model=pickle.load(open('model.pkl','rb'))
 
+Yield=pickle.load(open('Yeild.pkl','rb'))
+
 @app.route('/',methods=['GET'])
 def hello():
     return render_template("crop.html")
@@ -30,31 +32,23 @@ def predict():
     crop_name = label_encoder.inverse_transform([predicted_class_index])[0]
 
     return render_template('crop.html', prediction_text=crop_name)
-@app.route('/predict_yield', methods=['GET'])
+@app.route('/predict_yield', methods=['GET','POST'])
 def predict_yield_get():
-    return render_template('predict_yield.html')
-
-@app.route('/predict_yield', methods=['POST'])
-def predict_yield_post():
-    if request.method == 'POST':
+     
+     if request.method == 'POST':
         # Get input values from the form
-        crop = request.form.get('crop')
-        season = request.form.get('season')
-        state = request.form.get('state')
+        crop = int(request.form.get('crop'))
+        season = int(request.form.get('season'))
+        state = int(request.form.get('state'))
         area = float(request.form.get('area'))
         annual_rainfall = float(request.form.get('annual_rainfall'))
         fertilizer = float(request.form.get('fertilizer'))
         pesticide = float(request.form.get('pesticide'))
 
-        # Convert categorical values to numerical using label encoder
-        crop_encoded = label_encoder.transform([crop])[0]
-        season_encoded = label_encoder.transform([season])[0]
-        state_encoded = label_encoder.transform([state])[0]
 
         # Make prediction
-        prediction = model.predict([[crop_encoded, season_encoded, state_encoded, area, annual_rainfall, fertilizer, pesticide]])
+        prediction = Yield.predict([[crop, season, state, area, annual_rainfall, fertilizer, pesticide]])
 
         # Display prediction
         return render_template('predict_yield.html', prediction_text=prediction[0])
-
-    return render_template('predict_yield.html')
+     return render_template('predict_yield.html')

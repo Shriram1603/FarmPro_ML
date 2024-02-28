@@ -4,9 +4,9 @@ import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.impute import SimpleImputer
+from xgboost import XGBRegressor
 # Load the data
 data = pd.read_csv('crop_yield.csv')
 
@@ -122,7 +122,7 @@ X_train_imputed = imputer.fit_transform(X_train)
 X_test_imputed = imputer.transform(X_test)
 
 # Initialize and train the Gradient Boosting Regressor
-model = GradientBoostingRegressor()
+model = KNeighborsRegressor(n_neighbors=5)
 model.fit(X_train_imputed, y_train)
 
 # Predict on the test set
