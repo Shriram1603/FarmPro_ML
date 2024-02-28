@@ -2,12 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
 import pickle
 from sklearn.preprocessing import LabelEncoder
 import warnings
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 
 import xgboost as xgb
 from sklearn.metrics import accuracy_score
