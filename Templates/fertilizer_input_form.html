@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Recommendation</title>
+</head>
+<body>
+    <h1>Input Form for Fertilizer Recommendation</h1>
+    <form method="post">
+        <label for="temperature">Temperature:</label>
+        <input type="number" name="temperature" required><br>
+
+        <label for="humidity">Humidity:</label>
+        <input type="number" name="humidity" required><br>
+
+        <label for="moisture">Moisture:</label>
+        <input type="number" name="moisture" required><br>
+
+        <label for="soil_type">Soil Type:</label>
+        <input type="number" name="soil_type" required><br>
+
+        <label for="crop_type">Crop Type:</label>
+        <input type="number" name="crop_type" required><br>
+
+        <label for="nitrogen">Nitrogen:</label>
+        <input type="number" name="nitrogen" required><br>
+
+        <label for="potassium">Potassium:</label>
+        <input type="number" name="potassium" required><br>
+
+        <label for="phosphorous">Phosphorous:</label>
+        <input type="number" name="phosphorous" required><br>
+
+        <input type="submit" value="Recommend Fertilizer">
+    </form>
+
+    <!-- Recommendation Result Section -->
+    {% if recommended_fertilizer %}
+    <div>
+        <h2>Recommended Fertilizer:</h2>
+        <p>{{ recommended_fertilizer }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>

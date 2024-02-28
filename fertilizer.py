@@ -19,8 +19,8 @@ print(data['Fertilizer Name'].unique())
 
 data['Fertilizer Name']=data['Fertilizer Name'].replace({'Urea': 1,'DAP':2 ,'14-35-14': 3,'28-28':4 ,'17-17-17': 5,'20-20': 6,'10-26-26':7})
 print(data['Fertilizer Name'].unique())
-x=data.iloc[:,:-1]
-y=data.iloc[:,-1]
+x=data[['Temparature','Humidity','Moisture','Soil Type','Crop Type','Nitrogen','Potassium','Phosphorous']]
+y=data['Fertilizer Name']
 
 #splitting
 

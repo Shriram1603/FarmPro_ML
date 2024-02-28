@@ -11,8 +11,8 @@ with open('label_encoder.pkl', 'rb') as le_file:
 
 #ML model sheesh :
 model=pickle.load(open('model.pkl','rb'))
-
 Yield=pickle.load(open('Yeild.pkl','rb'))
+fertilizer=pickle.load(open('fertilizer.pkl','rb'))
 
 @app.route('/',methods=['GET'])
 def hello():
@@ -52,3 +52,31 @@ def predict_yield_get():
         # Display prediction
         return render_template('predict_yield.html', prediction_text=prediction[0])
      return render_template('predict_yield.html')
+
+
+@app.route('/recommend_fertilizer', methods=['GET', 'POST'])
+def recommend_fertilizer():
+    if request.method == 'POST':
+        # Parse input values from the form
+        temperature = float(request.form.get('temperature'))
+        humidity = float(request.form.get('humidity'))
+        moisture = float(request.form.get('moisture'))
+        soil_type = int(request.form.get('soil_type'))
+        crop_type = int(request.form.get('crop_type'))
+        nitrogen = int(request.form.get('nitrogen'))
+        potassium = int(request.form.get('potassium'))
+        phosphorous = int(request.form.get('phosphorous'))
+
+        # Make prediction using the trained model
+        # input_data = [[temperature, humidity, moisture, soil_type, crop_type, nitrogen, potassium, phosphorous]]
+        recommended_fertilizer = fertilizer.predict([[temperature, humidity, moisture, soil_type, crop_type, nitrogen, potassium, phosphorous]])
+
+        # Render template with prediction result
+        return render_template('fertilizer_input_form.html', recommended_fertilizer=recommended_fertilizer[0])
+
+    # Render the input form template for GET requests
+    return render_template('fertilizer_input_form.html')
+
+
+
+
