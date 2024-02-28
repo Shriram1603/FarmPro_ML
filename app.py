@@ -13,6 +13,8 @@ with open('label_encoder.pkl', 'rb') as le_file:
 model=pickle.load(open('model.pkl','rb'))
 Yield=pickle.load(open('Yeild.pkl','rb'))
 fertilizer=pickle.load(open('fertilizer.pkl','rb'))
+demand=pickle.load(open('demand.pkl','rb'))
+
 
 @app.route('/',methods=['GET'])
 def hello():
@@ -76,6 +78,21 @@ def recommend_fertilizer():
 
     # Render the input form template for GET requests
     return render_template('fertilizer_input_form.html')
+
+@app.route('/predict_demand', methods=['POST','GET'])
+def predict_demand():
+    if request.method == 'POST':
+        # Get input values from the form
+        state = int(request.form.get('state'))
+        month = int(request.form.get('month'))
+        crop = int(request.form.get('crop'))
+
+        # Make prediction
+        prediction = demand.predict([[state, month, crop]])
+
+        # Display prediction
+        return render_template('predict_demand.html', prediction_text=prediction[0])
+    return render_template('predict_demand.html')
 
 
 
